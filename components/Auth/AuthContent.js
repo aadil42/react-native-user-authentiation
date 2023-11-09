@@ -5,9 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
+import LoadingOverlay from "../ui/LoadingOverlay";
+
 import { Colors } from '../../constants/styles';
 
-function AuthContent({ isLogin, onAuthenticate }) {
+
+function AuthContent({ isLogin, onAuthenticate, isLoading }) {
 
   const navigation = useNavigation();
   const [credentialsInvalid, setCredentialsInvalid] = useState({
@@ -16,7 +19,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     confirmEmail: false,
     confirmPassword: false,
   });
-
+  
   function switchAuthModeHandler() {
     if(isLogin) navigation.replace("Signup");
     if(!isLogin) navigation.replace("Login");
@@ -48,22 +51,31 @@ function AuthContent({ isLogin, onAuthenticate }) {
       return;
     }
     
+
     onAuthenticate({ email, password });
   }
 
+  const form =      <View style={styles.authContent}>
+                      <AuthForm
+                        isLogin={isLogin}
+                        onSubmit={submitHandler}
+                        credentialsInvalid={credentialsInvalid}
+                      />
+                      <View style={styles.buttons}>
+                        <FlatButton onPress={switchAuthModeHandler}>
+                          {isLogin ? 'Create a new user' : 'Log in instead'}
+                        </FlatButton>
+                      </View>
+                    </View>;
+
+  let content = form;
+
+  if(isLoading) {
+    content = <LoadingOverlay />
+  }
+
   return (
-    <View style={styles.authContent}>
-      <AuthForm
-        isLogin={isLogin}
-        onSubmit={submitHandler}
-        credentialsInvalid={credentialsInvalid}
-      />
-      <View style={styles.buttons}>
-        <FlatButton onPress={switchAuthModeHandler}>
-          {isLogin ? 'Create a new user' : 'Log in instead'}
-        </FlatButton>
-      </View>
-    </View>
+    content
   );
 }
 
