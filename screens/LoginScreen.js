@@ -24,7 +24,7 @@ function LoginScreen() {
           }
         ]);
 
-        const token = response && response.data.idToken || "";
+        const token = response && response.data.idToken || null;
         authenticate(token);
         return response;  
       }catch (error) {

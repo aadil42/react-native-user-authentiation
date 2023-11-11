@@ -20,7 +20,7 @@ function SignupScreen() {
       const response = await createUser(email, password);  
       setIsLoading(false);
 
-      const token = response && response.data.idToken || "";
+      const token = response && response.data.idToken || null;
       authenticate(token);
 
       return response;  

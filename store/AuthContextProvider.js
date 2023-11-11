@@ -7,7 +7,7 @@ export const AuthContext = createContext({
 const AuthContextProvider = ({children}) => {
 
     const [authenticated, SetAuthenticated] = useState(false);
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(null);
 
     const authenticate = (token) => {
         if(token) {
@@ -17,7 +17,8 @@ const AuthContextProvider = ({children}) => {
     }
 
     const logout = () => {
-
+        setToken("");
+        SetAuthenticated(false);
     }
 
     values = {
