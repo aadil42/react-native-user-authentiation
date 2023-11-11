@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-
+import { Alert } from "react-native";
 
 import IconButton from "./components/ui/IconButton";
 import LoginScreen from './screens/LoginScreen';
@@ -35,6 +35,19 @@ function AuthenticatedStack() {
   const authCtx = useContext(AuthContext);
   const { logout } = authCtx;
 
+  const confirmLoggingOut = () => {
+    Alert.alert("Logout", "Are you sure?", [
+      {
+        text: "No"
+      },
+      {
+        text: "Yes",
+        onPress: () => {
+          logout();
+        }
+      }
+    ]);
+  }
   return (
     <Stack.Navigator
       screenOptions={{
@@ -46,7 +59,7 @@ function AuthenticatedStack() {
             icon="exit"
             color={tintColor}
             size={24}
-            onPress={logout}
+            onPress={confirmLoggingOut}
           />
         }
       }}
