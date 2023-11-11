@@ -25,7 +25,6 @@ function LoginScreen() {
         ]);
 
         const token = response && response.data.idToken || "";
-        
         authenticate(token);
         return response;  
       }catch (error) {
