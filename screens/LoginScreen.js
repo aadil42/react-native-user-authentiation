@@ -23,6 +23,10 @@ function LoginScreen() {
             onPress: () => setIsLoading(false)
           }
         ]);
+
+        const token = response && response.data.idToken || "";
+        
+        authenticate(token);
         return response;  
       }catch (error) {
         
