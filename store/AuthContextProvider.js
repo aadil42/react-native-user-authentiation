@@ -11,13 +11,7 @@ const AuthContextProvider = ({children}) => {
     const [authenticated, SetAuthenticated] = useState(false);
     const [token, setToken] = useState(null);
 
-    useEffect(() => {
-        const getSavedToken = async () => {
-            const response = await AsyncStorage.getItem('token');
-            if(response) SetAuthenticated(true);
-        }
-        getSavedToken();
-    }, []);
+    
 
     const authenticate = (token) => {
         if(token) {
@@ -25,6 +19,11 @@ const AuthContextProvider = ({children}) => {
             SetAuthenticated(true);
             AsyncStorage.setItem('token', token); // values must be strings. token is tring
         };
+    }
+
+    const logInWithCurrentSession = () => {
+        setToken(token);
+        SetAuthenticated(true);
     }
 
     const logout = () => {
@@ -37,7 +36,8 @@ const AuthContextProvider = ({children}) => {
         token: token,
         isAuthenticated: authenticated,
         authenticate: authenticate,
-        logout: logout
+        logout: logout,
+        logInWithCurrentSession: logInWithCurrentSession
     }
 
     return (
