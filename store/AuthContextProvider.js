@@ -17,7 +17,7 @@ const AuthContextProvider = ({children}) => {
     }
 
     const logout = () => {
-        setToken("");
+        setToken(null);
         SetAuthenticated(false);
     }
 

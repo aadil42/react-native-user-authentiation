@@ -19,3 +19,7 @@ export const loginUser = async (email, password) => {
 export const createUser = async (email, password) => {
   return await authenticateUser(email, password, "signUp");
 }
+
+export const getProtectedContent = async (token) => {
+    return await axios.get(`https://react-native-authenticat-65ef8-default-rtdb.firebaseio.com/dummyContent.json?auth=${token}`);
+}
