@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Alert } from 'react-native';
 import AuthContent from '../components/Auth/AuthContent';
 import { loginUser } from '../utils/auth';
 
+import { AuthContext } from '../store/AuthContextProvider';
 function LoginScreen() {
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const authCtx = useContext(AuthContext);
+
+  const { authenticate } = authCtx;
 
   const logUser = async ({email, password}) => {
       try {
