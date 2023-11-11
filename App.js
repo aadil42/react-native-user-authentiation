@@ -74,7 +74,7 @@ function Navigation() {
   const authCtx = useContext(AuthContext);
 
   const {isAuthenticated} = authCtx;
-  
+  console.log(isAuthenticated, 'this is checking');
   return (
     <NavigationContainer>
       {isAuthenticated && <AuthenticatedStack />}
